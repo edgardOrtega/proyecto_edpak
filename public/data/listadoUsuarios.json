@@ -1,0 +1,35 @@
+[
+    {
+      "userName": "admin1",
+      "Email": "admin1@example.com",
+      "Password": "admin123",
+      "Rol": "administrador",
+      "Activo": true,
+      "Fecha_creado": "2025-02-13T10:00:00Z"
+    },
+    {
+      "userName": "cliente1",
+      "Email": "cliente1@example.com",
+      "Password": "cliente123",
+      "Rol": "cliente",
+      "Activo": true,
+      "Fecha_creado": "2025-02-12T15:30:00Z"
+    },
+    {
+      "userName": "cliente2",
+      "Email": "cliente2@example.com",
+      "Password": "cliente456",
+      "Rol": "cliente",
+      "Activo": false,
+      "Fecha_creado": "2025-02-10T08:45:00Z"
+    },
+    {
+      "userName": "admin2",
+      "Email": "admin2@example.com",
+      "Password": "admin456",
+      "Rol": "administrador",
+      "Activo": true,
+      "Fecha_creado": "2025-02-11T12:20:00Z"
+    }
+  ]
+  
