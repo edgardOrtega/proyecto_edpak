@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import { Form, Button, InputGroup, Card } from "react-bootstrap";
 import { FaEye } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
 
 const Profile = () => {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     username: "edgard_Ortega",
     birthdate: "16/05/1991",
@@ -12,7 +14,6 @@ const Profile = () => {
 
   const [showPassword, setShowPassword] = useState(false);
 
-  // Manejar cambios en los inputs
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
@@ -25,43 +26,23 @@ const Profile = () => {
           <Form>
             <Form.Group className="mb-3">
               <Form.Label className="fw-bold">Nombre usuario</Form.Label>
-              <Form.Control
-                type="text"
-                name="username"
-                value={formData.username}
-                onChange={handleChange}
-              />
+              <Form.Control type="text" name="username" value={formData.username} onChange={handleChange} />
             </Form.Group>
 
             <Form.Group className="mb-3">
               <Form.Label className="fw-bold">Fecha de nacimiento</Form.Label>
-              <Form.Control
-                type="date"
-                name="birthdate"
-                value={formData.birthdate}
-                onChange={handleChange}
-              />
+              <Form.Control type="date" name="birthdate" value={formData.birthdate} onChange={handleChange} />
             </Form.Group>
 
             <Form.Group className="mb-3">
               <Form.Label className="fw-bold">Email</Form.Label>
-              <Form.Control
-                type="email"
-                name="email"
-                value={formData.email}
-                onChange={handleChange}
-              />
+              <Form.Control type="email" name="email" value={formData.email} onChange={handleChange} />
             </Form.Group>
 
             <Form.Group className="mb-3">
               <Form.Label className="fw-bold">Password</Form.Label>
               <InputGroup>
-                <Form.Control
-                  type={showPassword ? "text" : "password"}
-                  name="password"
-                  value={formData.password}
-                  onChange={handleChange}
-                />
+                <Form.Control type={showPassword ? "text" : "password"} name="password" value={formData.password} onChange={handleChange} />
                 <Button variant="outline-dark" onClick={() => setShowPassword(!showPassword)}>
                   <FaEye />
                 </Button>
@@ -71,6 +52,9 @@ const Profile = () => {
             <div className="d-grid">
               <Button variant="dark" type="button" onClick={() => console.log("Datos guardados:", formData)}>
                 GUARDAR
+              </Button>
+              <Button variant="primary" className="mt-3" onClick={() => navigate("/Historial")}>
+                Ver Historial de Compras
               </Button>
             </div>
           </Form>

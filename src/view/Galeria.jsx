@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Container, Row, Spinner, Alert } from "react-bootstrap";
-import ProductCart from "../components/ProductCart"; // Asegúrate de que el nombre es correcto
+import ProductCart from "../components/ProductCart"; 
 
 const Galeria = () => {
   const [productos, setProductos] = useState([]);
@@ -13,7 +13,12 @@ const Galeria = () => {
       .get("/data/tecnologia.json")
       .then((response) => {
         if (Array.isArray(response.data)) {
-          setProductos(response.data);
+          // Agregar ID a cada producto si no lo tiene
+          const productosConID = response.data.map((producto, index) => ({
+            ...producto,
+            id: index + 1, // Si el JSON no tiene IDs, los generamos aquí
+          }));
+          setProductos(productosConID);
         } else {
           console.error("Error: La respuesta no es un array", response.data);
           setError("Los datos no tienen el formato esperado.");
@@ -42,8 +47,8 @@ const Galeria = () => {
       <Row className="justify-content-center">
         {!loading &&
           !error &&
-          productos.map((product, index) => (
-            <ProductCart key={index} product={product} />
+          productos.map((product) => (
+            <ProductCart key={product.id} product={product} />
           ))}
       </Row>
     </Container>
