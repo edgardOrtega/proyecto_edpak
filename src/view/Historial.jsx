@@ -23,6 +23,7 @@ const Historial = () => {
           >
             <Card.Body>
               <h5 className="fw-bold">Compra realizada el {purchase.date}</h5>
+              <h6 className="fw-bold text-success">Total: ${purchase.total}</h6>
               <Row className="justify-content-center">
                 {purchase.products.map((product) => (
                   <Col key={product.id} md={3} className="text-center">

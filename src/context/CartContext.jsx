@@ -6,44 +6,44 @@ export const CartProvider = ({ children }) => {
   const [cart, setCart] = useState([]);
   const [purchaseHistory, setPurchaseHistory] = useState([]);
 
-  // Agregar producto al carrito
+  // ✅ Agregar producto con la cantidad correcta desde la galería
   const addToCart = (product) => {
     setCart((prevCart) => {
       const existingProduct = prevCart.find((item) => item.id === product.id);
       if (existingProduct) {
         return prevCart.map((item) =>
           item.id === product.id
-            ? { ...item, quantity: Math.min(item.quantity + 1, item.stock) }
+            ? { ...item, quantity: Math.min(item.quantity + product.quantity, item.stock) } // 🔹 Usa la cantidad seleccionada
             : item
         );
       } else {
-        return [...prevCart, { ...product, quantity: 1 }];
+        return [...prevCart, { ...product }];
       }
     });
   };
 
-  // Eliminar producto del carrito
+  // ✅ Eliminar producto del carrito
   const removeFromCart = (id) => {
     setCart((prevCart) => prevCart.filter((item) => item.id !== id));
   };
 
-  // Vaciar carrito
+  // ✅ Vaciar carrito
   const clearCart = () => {
     setCart([]);
   };
 
-  // Actualizar cantidad
+  // ✅ Actualizar cantidad de productos dentro del carrito
   const updateQuantity = (productId, newQuantity) => {
     setCart((prevCart) =>
       prevCart.map((item) =>
         item.id === productId
-          ? { ...item, quantity: Math.max(1, Math.min(newQuantity, item.stock)) }
+          ? { ...item, quantity: Math.max(1, Math.min(newQuantity, item.stock)) } // 🔹 Evita valores inválidos
           : item
       )
     );
   };
 
-  // **Finalizar Compra**
+  // ✅ Finalizar compra correctamente
   const finalizePurchase = () => {
     if (cart.length === 0) return;
 
@@ -54,7 +54,7 @@ export const CartProvider = ({ children }) => {
     };
 
     setPurchaseHistory((prevHistory) => [...prevHistory, newPurchase]);
-    setCart([]); // Vaciar carrito después de la compra
+    setCart([]); // ✅ Vacía el carrito después de la compra
   };
 
   return (

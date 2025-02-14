@@ -3,6 +3,7 @@ import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import logo from "../assets/edpak.png";
+import Logout from "../view/Logout"; 
 
 const Navegation = () => {
   return (
@@ -23,7 +24,8 @@ const Navegation = () => {
             <Nav.Link as={NavLink} to="/CrearProducto">Crear Producto</Nav.Link>
             <Nav.Link as={NavLink} to="/Galeria">Galería</Nav.Link>
             <Nav.Link as={NavLink} to="/Carrito">Carrito</Nav.Link>
-            <Nav.Link as={NavLink} to="/Historial">Historial</Nav.Link> {/* ✅ Agregado */}
+            <Nav.Link as={NavLink} to="/Historial">Historial</Nav.Link>
+            <Logout />
           </Nav>
         </Navbar.Collapse>
       </Container>

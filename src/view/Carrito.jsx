@@ -2,29 +2,47 @@ import React from "react";
 import { Button, Container, Row, Col } from "react-bootstrap";
 import { useCart } from "../context/CartContext";
 import { useHistory } from "../context/HistoryContext";
-import { useNavigate } from "react-router-dom"; // 🚀 Importamos useNavigate para redirección
-import Swal from "sweetalert2"; // 🚀 Importamos SweetAlert2
+import { useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
 
-const Carrito = () => {
+const Carrito = ({ actualizarStock }) => {
   const { cart, removeFromCart, clearCart, updateQuantity } = useCart();
   const { addToHistory } = useHistory();
-  const navigate = useNavigate(); // 🚀 Hook para redirigir al historial
+  const navigate = useNavigate();
 
-  // Función para comprar: Mueve el carrito al historial, muestra SweetAlert y redirige
+  // 🔹 Eliminar un producto y restaurar stock en la galería
+  const handleRemove = (product) => {
+    console.log("📌 Eliminando producto:", product);
+    actualizarStock(product.id, product.quantity); // ✅ Devuelve stock
+    removeFromCart(product.id);
+  };
+
+  // 🔹 Vaciar carrito y restaurar stock de todos los productos
+  const handleClearCart = () => {
+    console.log("📌 Vaciando carrito...");
+    cart.forEach((product) => {
+      console.log(`➕ Restaurando stock: ${product.name} (${product.quantity})`);
+      actualizarStock(product.id, product.quantity);
+    });
+    clearCart();
+  };
+
+  // 🔹 Finalizar compra (NO restaurar stock)
   const handlePurchase = () => {
-    if (cart.length > 0) {
-      addToHistory(cart); // ✅ Mueve la compra al historial
-      clearCart(); // ✅ Vacía el carrito después de la compra
-      
-      Swal.fire({
-        title: "¡Compra realizada con éxito!",
-        text: "Tu compra ha sido registrada correctamente.",
-        icon: "success",
-        confirmButtonText: "OK"
-      }).then(() => {
-        navigate("/historial"); // ✅ Redirección al historial después de la compra
-      });
-    }
+    if (cart.length === 0) return;
+
+    // ✅ Guardamos la compra en historial
+    addToHistory(cart);
+
+    Swal.fire({
+      title: "¡Compra realizada con éxito!",
+      text: "Tu compra ha sido registrada correctamente.",
+      icon: "success",
+      confirmButtonText: "OK",
+    }).then(() => {
+      clearCart(); // ✅ Solo vacía el carrito (NO restaura stock)
+      navigate("/historial"); // ✅ Redirige al historial
+    });
   };
 
   return (
@@ -45,7 +63,6 @@ const Carrito = () => {
               padding: "15px",
             }}
           >
-            {/* Imagen del producto */}
             <Col md={3} className="text-center">
               <img
                 src={product.image}
@@ -55,18 +72,12 @@ const Carrito = () => {
               />
             </Col>
 
-            {/* Información del producto */}
             <Col md={5}>
               <h5 className="fw-bold">{product.name.toUpperCase()}</h5>
-              <p>
-                <strong>Descripción:</strong> {product.description}
-              </p>
-              <p>
-                <strong>Precio:</strong> ${product.price}
-              </p>
+              <p><strong>Descripción:</strong> {product.description}</p>
+              <p><strong>Precio:</strong> ${product.price}</p>
             </Col>
 
-            {/* Botones de cantidad */}
             <Col md={2} className="text-center">
               <Button
                 variant="light"
@@ -87,9 +98,8 @@ const Carrito = () => {
               </Button>
             </Col>
 
-            {/* Botón de eliminar */}
             <Col md={2} className="text-center">
-              <Button variant="danger" onClick={() => removeFromCart(product.id)}>
+              <Button variant="danger" onClick={() => handleRemove(product)}>
                 Eliminar
               </Button>
             </Col>
@@ -99,10 +109,9 @@ const Carrito = () => {
         <h5 className="text-center mt-4">No hay productos en el carrito</h5>
       )}
 
-      {/* Botones "Vaciar Carrito" y "Comprar" */}
       {cart.length > 0 && (
         <div className="text-center mt-4">
-          <Button variant="dark" className="w-40 mb-3" onClick={clearCart}>
+          <Button variant="dark" className="w-40 mb-3" onClick={handleClearCart}>
             Vaciar Carrito
           </Button>
           <Button variant="success" className="w-40 mb-3" onClick={handlePurchase}>
