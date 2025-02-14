@@ -1,13 +1,54 @@
-import React from "react";
-import { Table, Button } from "react-bootstrap";
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+import { Table, Button, Spinner } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
 
+const JSON_FILE = "/data/listadoUsuarios.json"; // Ruta del archivo JSON
 const ListarUsuarios = () => {
-  const users = [
-    { id: 1, username: "usuario1", email: "user1@example.com", password: "******", rol: "Admin", activo: "Sí", fecha: "2024-02-11" },
-    { id: 2, username: "usuario2", email: "user2@example.com", password: "******", rol: "User", activo: "No", fecha: "2024-02-10" },
-    { id: 3, username: "usuario3", email: "user3@example.com", password: "******", rol: "Editor", activo: "Sí", fecha: "2024-02-09" },
-    { id: 4, username: "usuario4", email: "user4@example.com", password: "******", rol: "User", activo: "Sí", fecha: "2024-02-08" },
-  ];
+  const [users, setUsers] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const fetchUsers = async () => {
+      try {
+        const response = await axios.get(JSON_FILE); // Ruta local del JSON
+        setUsers(response.data);
+      } catch (err) {
+        setError("Error al cargar los usuarios");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchUsers();
+  }, []);
+
+  const handleEdit = (index) => {
+    navigate(`/editar-usuario/${index}`);
+  };
+
+  const handleDelete = (index) => {
+    Swal.fire({
+      title: "¿Estás seguro?",
+      text: "No podrás revertir esto!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Sí, eliminar!"
+    }).then((result) => {
+      if (result.isConfirmed) {
+        setUsers(users.filter((_, i) => i !== index));
+        Swal.fire("Eliminado!", "El usuario ha sido eliminado.", "success");
+      }
+    });
+  };
+
+  if (loading) return <Spinner animation="border" className="d-block mx-auto mt-4" />;
+  if (error) return <p className="text-center text-danger mt-4">{error}</p>;
 
   return (
     <div className="container mt-4">
@@ -15,7 +56,7 @@ const ListarUsuarios = () => {
       <Table striped bordered hover className="text-center align-middle mt-3">
         <thead>
           <tr>
-            <th>userName</th>
+            <th>Username</th>
             <th>Email</th>
             <th>Password</th>
             <th>Rol</th>
@@ -26,19 +67,19 @@ const ListarUsuarios = () => {
           </tr>
         </thead>
         <tbody>
-          {users.map((user) => (
-            <tr key={user.id}>
-              <td>{user.username}</td>
-              <td>{user.email}</td>
-              <td>{user.password}</td>
-              <td>{user.rol}</td>
-              <td>{user.activo}</td>
-              <td>{user.fecha}</td>
+          {users.map((user, index) => (
+            <tr key={index}>
+              <td>{user.userName}</td>
+              <td>{user.Email}</td>
+              <td>{user.Password}</td>
+              <td>{user.Rol}</td>
+              <td>{user.Activo ? "Sí" : "No"}</td>
+              <td>{new Date(user.Fecha_creado).toLocaleDateString()}</td>
               <td>
-                <Button variant="success" size="sm">Editar</Button>
+                <Button variant="success" size="sm" onClick={() => handleEdit(index)}>Editar</Button>
               </td>
               <td>
-                <Button variant="danger" size="sm">Eliminar</Button>
+                <Button variant="danger" size="sm" onClick={() => handleDelete(index)}>Eliminar</Button>
               </td>
             </tr>
           ))}

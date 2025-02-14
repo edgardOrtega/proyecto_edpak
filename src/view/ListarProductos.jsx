@@ -1,13 +1,52 @@
-import React from "react";
-import { Table, Button } from "react-bootstrap";
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+import { Table, Button, Spinner } from "react-bootstrap";
+import Swal from "sweetalert2";
+
+const JSON_FILE = "/data/tecnologia.json"; // Ruta del archivo JSON
 
 const ListarProductos = () => {
-  const products = [
-    { id: 1, name: "Producto 1", description: "Descripción 1", price: "$10", stock: 20, category: "Categoría A" },
-    { id: 2, name: "Producto 2", description: "Descripción 2", price: "$15", stock: 10, category: "Categoría B" },
-    { id: 3, name: "Producto 3", description: "Descripción 3", price: "$20", stock: 5, category: "Categoría C" },
-    { id: 4, name: "Producto 4", description: "Descripción 4", price: "$25", stock: 8, category: "Categoría D" },
-  ];
+  const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        const response = await axios.get(JSON_FILE);
+        setProducts(response.data);
+      } catch (err) {
+        setError("Error al cargar los productos");
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchProducts();
+  }, []);
+
+  const handleEdit = (id) => {
+    console.log("Editar producto con ID:", id);
+  };
+
+  const handleDelete = (id) => {
+    Swal.fire({
+      title: "¿Estás seguro?",
+      text: "No podrás revertir esto!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Sí, eliminar!"
+    }).then((result) => {
+      if (result.isConfirmed) {
+        setProducts(products.filter(product => product.id !== id));
+        Swal.fire("Eliminado!", "El producto ha sido eliminado.", "success");
+      }
+    });
+  };
+
+  if (loading) return <Spinner animation="border" className="d-block mx-auto mt-4" />;
+  if (error) return <p className="text-center text-danger mt-4">{error}</p>;
 
   return (
     <div className="container mt-4">
@@ -25,18 +64,18 @@ const ListarProductos = () => {
           </tr>
         </thead>
         <tbody>
-          {products.map((product) => (
-            <tr key={product.id}>
+          {products.map((product, index) => (
+            <tr key={index}>
               <td>{product.name}</td>
               <td>{product.description}</td>
               <td>{product.price}</td>
               <td>{product.stock}</td>
               <td>{product.category}</td>
               <td>
-                <Button variant="success" size="sm">Editar</Button>
+                <Button variant="success" size="sm" onClick={() => handleEdit(index)}>Editar</Button>
               </td>
               <td>
-                <Button variant="danger" size="sm">Eliminar</Button>
+                <Button variant="danger" size="sm" onClick={() => handleDelete(index)}>Eliminar</Button>
               </td>
             </tr>
           ))}

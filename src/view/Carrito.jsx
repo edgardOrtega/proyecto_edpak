@@ -3,19 +3,27 @@ import { Button, Container, Row, Col } from "react-bootstrap";
 import { useCart } from "../context/CartContext";
 import { useHistory } from "../context/HistoryContext";
 import { useNavigate } from "react-router-dom"; // 🚀 Importamos useNavigate para redirección
+import Swal from "sweetalert2"; // 🚀 Importamos SweetAlert2
 
 const Carrito = () => {
   const { cart, removeFromCart, clearCart, updateQuantity } = useCart();
   const { addToHistory } = useHistory();
   const navigate = useNavigate(); // 🚀 Hook para redirigir al historial
 
-  // Función para comprar: Mueve el carrito al historial, muestra alert y redirige
+  // Función para comprar: Mueve el carrito al historial, muestra SweetAlert y redirige
   const handlePurchase = () => {
     if (cart.length > 0) {
       addToHistory(cart); // ✅ Mueve la compra al historial
       clearCart(); // ✅ Vacía el carrito después de la compra
-      alert("¡Compra realizada con éxito!"); // ✅ Alerta de compra exitosa
-      navigate("/historial"); // ✅ Redirección al historial después de la compra
+      
+      Swal.fire({
+        title: "¡Compra realizada con éxito!",
+        text: "Tu compra ha sido registrada correctamente.",
+        icon: "success",
+        confirmButtonText: "OK"
+      }).then(() => {
+        navigate("/historial"); // ✅ Redirección al historial después de la compra
+      });
     }
   };
 
