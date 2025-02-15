@@ -30,7 +30,7 @@ Para ejecutar este proyecto en tu entorno local, sigue estos pasos:
 | **react-dom**        | ^18.3.1     | Renderizado de la aplicación en el DOM |
 | **react-icons**      | ^5.4.0      | Conjunto de iconos populares para React |
 | **react-router-dom** | ^7.1.5      | Manejo de rutas y navegación en React |
-| **sweetalert2: **    | ^11.16.1    | Para notificaciones y ventanas mas esteticas |
+| **sweetalert2**    | ^11.16.1    | Para notificaciones y ventanas mas esteticas |
 
 ## 🚀 Tecnologías Utilizadas
 - **Frontend**: React, React Bootstrap, React Router
