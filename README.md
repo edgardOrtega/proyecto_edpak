@@ -100,7 +100,6 @@ Proyecto_EDPAK/
 
 ## 📝 Próximas Mejoras
 - Integración con una API real para usuarios y productos.
-- Implementación de pagos en línea.
 - Mejoras en la interfaz de usuario y experiencia de compra.
 
 📌 **Desarrollado con ❤️ y React por el equipo de EDPAK**
