@@ -78,7 +78,7 @@ Proyecto_EDPAK/
 ## 🎯 Características Principales
 
 ### ✅ Funcionalidades Públicas
-- Visualización de las pizzas en el menú.
+- Visualización del home.
 - Registro de usuarios.
 - Inicio de sesión.
 
