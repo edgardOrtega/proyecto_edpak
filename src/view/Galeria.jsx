@@ -10,6 +10,7 @@ const Galeria = ({ actualizarStock, stockDisponible }) => {
   const { addToCart } = useCart();
   const [quantities, setQuantities] = useState({});
 
+  // Cargar productos desde JSON
   useEffect(() => {
     fetch("/data/tecnologia.json")
       .then((res) => res.json())
@@ -32,6 +33,10 @@ const Galeria = ({ actualizarStock, stockDisponible }) => {
       });
   }, []);
 
+  // 🔹 Función para formatear CLP sin decimales
+  const formatoCLP = (valor) => `$${Number(valor).toLocaleString("es-CL", { minimumFractionDigits: 0 })}`;
+
+  // Agregar producto al carrito
   const handleAddToCart = (product) => {
     const quantity = quantities[product.id];
     const stockRestante = stockDisponible[product.id] ?? product.stock;
@@ -74,62 +79,35 @@ const Galeria = ({ actualizarStock, stockDisponible }) => {
 
             return (
               <Col key={product.id} md={4} lg={3} className="mb-4">
-                <Card 
-                  className="shadow-sm p-3 rounded text-center"
-                  style={{
-                    border: "3px solid yellow", // 🟡 Bordes amarillos
-                    backgroundColor: "white", // ⚪ Fondo blanco
-                  }}
-                >
-                  <Card.Img 
-                    variant="top" 
-                    src={product.image} 
-                    alt={product.name} 
-                    style={{ height: "200px", objectFit: "contain", borderRadius: "10px" }} 
-                  />
+                <Card className="shadow-sm p-3 rounded text-center" style={{ border: "3px solid yellow" }}>
+                  <Card.Img variant="top" src={product.image} alt={product.name} style={{ height: "200px", objectFit: "contain" }} />
                   <Card.Body>
-                    <Card.Title className="fw-bold text-dark">{product.name}</Card.Title>
+                    <Card.Title className="fw-bold">{product.name}</Card.Title>
                     <Card.Text className="text-muted">{product.description}</Card.Text>
-                    <p className="fw-bold text-dark">Precio: ${product.price}</p>
-                    <p className={`fw-bold ${stockRestante === 0 ? "text-danger" : "text-dark"}`}>
+                    <p className="fw-bold">Precio: {formatoCLP(product.price)}</p>
+                    <p className={`fw-bold ${stockRestante === 0 ? "text-danger" : ""}`}>
                       Stock: {stockRestante}
                     </p>
 
                     <InputGroup className="mb-3 justify-content-center">
                       <Button 
                         variant="outline-dark" 
-                        onClick={() => setQuantities((prev) => ({ 
-                          ...prev, 
-                          [product.id]: Math.max(1, prev[product.id] - 1) 
-                        }))}
+                        onClick={() => setQuantities((prev) => ({ ...prev, [product.id]: Math.max(1, prev[product.id] - 1) }))}
                         disabled={quantities[product.id] <= 1}
                       >
                         -
                       </Button>
-                      <FormControl 
-                        className="text-center" 
-                        readOnly 
-                        value={quantities[product.id]} 
-                        style={{ backgroundColor: "white", fontWeight: "bold" }}
-                      />
+                      <FormControl className="text-center" readOnly value={quantities[product.id]} />
                       <Button 
                         variant="outline-dark" 
-                        onClick={() => setQuantities((prev) => ({ 
-                          ...prev, 
-                          [product.id]: prev[product.id] + 1 
-                        }))}
+                        onClick={() => setQuantities((prev) => ({ ...prev, [product.id]: prev[product.id] + 1 }))}
                         disabled={quantities[product.id] >= stockRestante}
                       >
                         +
                       </Button>
                     </InputGroup>
 
-                    <Button 
-                      variant="dark" 
-                      onClick={() => handleAddToCart(product)}
-                      disabled={stockRestante === 0}
-                      style={{ fontWeight: "bold" }}
-                    >
+                    <Button variant="dark" onClick={() => handleAddToCart(product)} disabled={stockRestante === 0}>
                       {stockRestante === 0 ? "Sin Stock" : "Añadir al Carrito"}
                     </Button>
                   </Card.Body>

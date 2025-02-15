@@ -14,8 +14,10 @@ const ProductCard = ({ product }) => {
     }
   }, [cart, product.id]);
 
-  // 🔹 Asegurar que el precio sea un número válido
-  const formattedPrice = product.price ? Number(product.price).toFixed(2) : "0.00";
+  // 🔹 Función para formatear CLP sin decimales y en el formato correcto
+  const formatoCLP = (valor) => {
+    return `$${Number(valor).toLocaleString("es-CL", { minimumFractionDigits: 0 })}`;
+  };
 
   const handleIncrease = () => {
     if (quantity < product.stock) {
@@ -42,7 +44,7 @@ const ProductCard = ({ product }) => {
           <strong>Descripción:</strong> {product.description}
         </Card.Text>
         <Card.Text>
-          <strong>Precio:</strong> ${formattedPrice} {/* 🔹 Ahora siempre es un número válido */}
+          <strong>Precio:</strong> {formatoCLP(product.price)}
         </Card.Text>
         <Card.Text>
           <strong>Stock:</strong> {product.stock}
@@ -51,7 +53,7 @@ const ProductCard = ({ product }) => {
           <Button variant="dark" onClick={handleDecrease} disabled={quantity <= 0}>
             -
           </Button>
-          <span className="mx-2">{quantity}</span>
+          <span className="mx-2 fw-bold">{quantity}</span>
           <Button variant="dark" onClick={handleIncrease} disabled={quantity >= product.stock}>
             +
           </Button>
