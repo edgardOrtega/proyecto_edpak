@@ -1,8 +1,8 @@
 [
     {
-      "userName": "admin1",
-      "Email": "admin1@example.com",
-      "Password": "admin123",
+      "userName": "gary",
+      "Email": "gary@ortega.com",
+      "Password": "1234",
       "Rol": "administrador",
       "Activo": true,
       "Fecha_creado": "2025-02-13T10:00:00Z"

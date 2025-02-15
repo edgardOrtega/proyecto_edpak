@@ -13,6 +13,7 @@ import Galeria from "./view/Galeria";
 import Carrito from "./view/Carrito";
 import Historial from "./view/Historial"; 
 import { Route, Routes } from "react-router-dom";
+import { AuthProvider } from "./context/AuthContext";
 
 function App() {
   const [productos, setProductos] = useState([]);
@@ -60,11 +61,15 @@ function App() {
 
   return (
     <>
+
+      <AuthProvider>
       <Navegation />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/Register" element={<Register />} />
+
         <Route path="/Login" element={<Login />} />
+
         <Route path="/Profile" element={<Profile />} />
         <Route path="/ListarUsuarios" element={<ListarUsuarios />} />
         <Route path="/ListarProductos" element={<ListarProductos />} />
@@ -73,6 +78,7 @@ function App() {
         <Route path="/Carrito" element={<Carrito actualizarStock={actualizarStock} />} />
         <Route path="/Historial" element={<Historial />} />
       </Routes>
+      </AuthProvider>
     </>
   );
 }

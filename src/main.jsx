@@ -11,6 +11,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
     <BrowserRouter>
       <CartProvider>
         <HistoryProvider> {/* 👈 Envuelve la app con HistoryProvider */}
+          
           <App />
         </HistoryProvider>
       </CartProvider>

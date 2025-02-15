@@ -41,3 +41,81 @@ Esto abrirá la aplicación en tu navegador en `http://localhost:3000/`.
 ## 📜 Licencia
 Este proyecto está bajo la licencia [MIT](LICENSE).
 
+# 📌 Proyecto: Pizzería Mamma Mia!
+
+## 📖 Descripción
+Pizzería Mamma Mia! es una aplicación web desarrollada en **React** que permite a los usuarios navegar por un menú de pizzas, realizar pedidos y gestionar su carrito de compras. Además, cuenta con un sistema de autenticación que permite a los administradores gestionar productos y usuarios.
+
+## 🚀 Tecnologías Utilizadas
+- **Frontend**: React, React Bootstrap, React Router
+- **Backend (Simulado)**: JSON Server para manejo de datos de usuarios y productos
+- **Gestor de Estado**: Context API para la gestión del carrito de compras y autenticación
+- **Autenticación**: Manejo de usuarios con localStorage
+- **Alertas**: SweetAlert2 para notificaciones
+
+## 📂 Estructura del Proyecto
+```
+Proyecto_EDPAK/
+│── public/
+│   ├── data/
+│   │   ├── listadoUsuarios.json  # Datos de Usuarios
+|   |   ├── tecnologia.json  # Datos de Producto
+│   ├── images/
+│── src/
+│   ├── assets/
+|   |   ├── edpak.png
+|   |   ├── grupo.png
+│   ├── components/
+│   │   ├── Navegation.jsx
+│   │   ├── ProductCart.jsx
+│   ├── context/
+│   │   ├── AuthContext.jsx
+│   │   ├── CartContext.jsx
+│   │   ├── HistoryContext.jsx
+│   ├── views/
+│   │   ├── Carritojsx
+│   │   ├── CrearProducto.jsx
+│   │   ├── Galeria.jsx
+│   │   ├── Historial.jsx
+│   │   ├── Home.jsx
+│   │   ├── ListarProductos.jsx
+│   │   ├── ListarUsuarios.jsx
+│   │   ├── Login.jsx
+│   │   ├── Logout.jsx
+│   │   ├── Profile.jsx
+│   │   ├── Register.jsx
+│── README.md
+│── package.json
+│── .gitignore
+```
+
+## 🎯 Características Principales
+
+### ✅ Funcionalidades Públicas
+- Visualización de las pizzas en el menú.
+- Registro de usuarios.
+- Inicio de sesión.
+
+### 🔒 Funcionalidades Protegidas
+- **Cliente**: Acceso al carrito de compras, historial de pedidos y galería.
+- **Administrador**: Gestión de productos y usuarios.
+
+### 🔑 Autenticación
+- Validación de credenciales con `listadoUsuarios.json`.
+- Redirección automática según el rol del usuario.
+
+
+## 🔄 Flujo de Autenticación y Navegación
+1. Un usuario se registra o inicia sesión.
+2. Si la autenticación es correcta, se almacena en context
+3. Dependiendo del rol, se muestran diferentes opciones en la barra de navegación.
+4. Los usuarios pueden agregar productos al carrito y realizar compras.
+5. Se puede cerrar sesión, lo que limpia la variable global en context y mostrará solo las vistas públicas.
+
+## 📝 Próximas Mejoras
+- Integración con una API real para usuarios y productos.
+- Implementación de pagos en línea.
+- Mejoras en la interfaz de usuario y experiencia de compra.
+
+📌 **Desarrollado con ❤️ y React por el equipo de EDPAK**
+

@@ -1,9 +1,11 @@
 import React from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
+import { useAuth } from "../context/AuthContext";  // ✅ Importa el contexto
 
 const Logout = () => {
   const navigate = useNavigate();
+  const { logout } = useAuth();  // ✅ Obtén la función logout de AuthContext
 
   const handleLogout = (e) => {
     e.preventDefault();
@@ -19,8 +21,8 @@ const Logout = () => {
       cancelButtonText: "Cancelar"
     }).then((result) => {
       if (result.isConfirmed) {
-        localStorage.clear();
-        navigate("/");
+        logout();  // ✅ Llama a logout() para actualizar el estado global
+        navigate("/");  // ✅ Redirige al home
         Swal.fire("Sesión cerrada", "Has cerrado sesión correctamente.", "success");
       }
     });
