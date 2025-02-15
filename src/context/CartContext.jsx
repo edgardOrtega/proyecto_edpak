@@ -4,7 +4,6 @@ const CartContext = createContext();
 
 export const CartProvider = ({ children }) => {
   const [cart, setCart] = useState([]);
-  const [purchaseHistory, setPurchaseHistory] = useState([]);
 
   // Agregar producto al carrito
   const addToCart = (product) => {
@@ -13,26 +12,16 @@ export const CartProvider = ({ children }) => {
       if (existingProduct) {
         return prevCart.map((item) =>
           item.id === product.id
-            ? { ...item, quantity: Math.min(item.quantity + 1, item.stock) }
+            ? { ...item, quantity: Math.min(item.quantity + product.quantity, item.stock) }
             : item
         );
       } else {
-        return [...prevCart, { ...product, quantity: 1 }];
+        return [...prevCart, { ...product }];
       }
     });
   };
 
-  // Eliminar producto del carrito
-  const removeFromCart = (id) => {
-    setCart((prevCart) => prevCart.filter((item) => item.id !== id));
-  };
-
-  // Vaciar carrito
-  const clearCart = () => {
-    setCart([]);
-  };
-
-  // Actualizar cantidad
+  // Actualizar cantidad de un producto en el carrito
   const updateQuantity = (productId, newQuantity) => {
     setCart((prevCart) =>
       prevCart.map((item) =>
@@ -43,24 +32,18 @@ export const CartProvider = ({ children }) => {
     );
   };
 
-  // **Finalizar Compra**
-  const finalizePurchase = () => {
-    if (cart.length === 0) return;
+  // Eliminar un producto del carrito
+  const removeFromCart = (id) => {
+    setCart((prevCart) => prevCart.filter((item) => item.id !== id));
+  };
 
-    const newPurchase = {
-      fecha: new Date().toISOString(),
-      productos: cart,
-      total: cart.reduce((sum, item) => sum + item.price * item.quantity, 0),
-    };
-
-    setPurchaseHistory((prevHistory) => [...prevHistory, newPurchase]);
-    setCart([]); // Vaciar carrito después de la compra
+  // Vaciar el carrito
+  const clearCart = () => {
+    setCart([]);
   };
 
   return (
-    <CartContext.Provider
-      value={{ cart, addToCart, removeFromCart, clearCart, updateQuantity, finalizePurchase, purchaseHistory }}
-    >
+    <CartContext.Provider value={{ cart, addToCart, removeFromCart, clearCart, updateQuantity }}>
       {children}
     </CartContext.Provider>
   );
