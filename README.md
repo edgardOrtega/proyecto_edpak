@@ -30,21 +30,7 @@ Para ejecutar este proyecto en tu entorno local, sigue estos pasos:
 | **react-dom**        | ^18.3.1     | Renderizado de la aplicación en el DOM |
 | **react-icons**      | ^5.4.0      | Conjunto de iconos populares para React |
 | **react-router-dom** | ^7.1.5      | Manejo de rutas y navegación en React |
-
-## ▶️ Uso
-Para iniciar el proyecto en modo desarrollo, ejecuta:
-```bash
-npm start
-```
-Esto abrirá la aplicación en tu navegador en `http://localhost:3000/`.
-
-## 📜 Licencia
-Este proyecto está bajo la licencia [MIT](LICENSE).
-
-# 📌 Proyecto: Pizzería Mamma Mia!
-
-## 📖 Descripción
-Pizzería Mamma Mia! es una aplicación web desarrollada en **React** que permite a los usuarios navegar por un menú de pizzas, realizar pedidos y gestionar su carrito de compras. Además, cuenta con un sistema de autenticación que permite a los administradores gestionar productos y usuarios.
+| **sweetalert2: **    | ^11.16.1    | Para notificaciones y ventanas mas esteticas |
 
 ## 🚀 Tecnologías Utilizadas
 - **Frontend**: React, React Bootstrap, React Router
