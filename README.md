@@ -2,6 +2,14 @@
 
 ## 📌 Descripción
 Este es un proyecto desarrollado con React que utiliza varias dependencias para facilitar la construcción de la interfaz de usuario y la gestión de rutas.
+es un proyecto de compras que el usuario debe logearse para acceder a las partes privadas del usuario o administrado dependiendo de su rol esta incoorporado un carrito donde se iran guardando las cosas que quiere comprar y al momento de pagar se ira a un historial del usuario 
+
+## 🚀 logearse 🚀 
+para revisar el login puede ingresar con los correos y password de cualquier usuario de la data/listadoUsuarios.json
+ejemplo:
+
+"Email": "edpak@edpak.com"
+"Password": "1234"
 
 ## 🚀 Instalación
 Para ejecutar este proyecto en tu entorno local, sigue estos pasos:
