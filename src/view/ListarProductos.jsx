@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Table, Button, Spinner } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 
 const JSON_FILE = "/data/tecnologia.json"; // Ruta del archivo JSON
@@ -9,6 +10,7 @@ const ListarProductos = () => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const navigate = useNavigate(); 
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -25,7 +27,7 @@ const ListarProductos = () => {
   }, []);
 
   const handleEdit = (id) => {
-    console.log("Editar producto con ID:", id);
+    navigate(`/EditarProducto/${id}`);
   };
 
   const handleDelete = (id) => {
@@ -72,10 +74,10 @@ const ListarProductos = () => {
               <td>{product.stock}</td>
               <td>{product.category}</td>
               <td>
-                <Button variant="success" size="sm" onClick={() => handleEdit(index)}>Editar</Button>
+              <Button variant="warning" size="sm" onClick={() => handleEdit(product.id)}>✏️ Editar</Button>
               </td>
               <td>
-                <Button variant="danger" size="sm" onClick={() => handleDelete(index)}>Eliminar</Button>
+              <Button variant="danger" size="sm" onClick={() => handleDelete(product.id)}>🗑️ Eliminar</Button>
               </td>
             </tr>
           ))}

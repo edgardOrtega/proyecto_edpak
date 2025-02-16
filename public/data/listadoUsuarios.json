@@ -1,13 +1,15 @@
 [
     {
-      "userName": "gary",
-      "Email": "gary@ortega.com",
+      "id": "1",
+      "userName": "edpak",
+      "Email": "edpak@edpak.com",
       "Password": "1234",
       "Rol": "administrador",
       "Activo": true,
       "Fecha_creado": "2025-02-13T10:00:00Z"
     },
     {
+      "id": "2",
       "userName": "cliente1",
       "Email": "cliente1@example.com",
       "Password": "cliente123",
@@ -16,6 +18,7 @@
       "Fecha_creado": "2025-02-12T15:30:00Z"
     },
     {
+      "id": "3",
       "userName": "cliente2",
       "Email": "cliente2@example.com",
       "Password": "cliente456",
@@ -23,7 +26,7 @@
       "Activo": false,
       "Fecha_creado": "2025-02-10T08:45:00Z"
     },
-    {
+    {"id": "4",
       "userName": "admin2",
       "Email": "admin2@example.com",
       "Password": "admin456",

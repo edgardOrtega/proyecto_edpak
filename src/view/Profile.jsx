@@ -1,62 +1,88 @@
-import React, { useState } from "react";
-import { Form, Button, InputGroup, Card } from "react-bootstrap";
-import { FaEye } from "react-icons/fa";
-import { useNavigate } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { Form, Button, Card } from "react-bootstrap";
+import { useAuth } from "../context/AuthContext";
 
 const Profile = () => {
-  const navigate = useNavigate();
-  const [formData, setFormData] = useState({
-    username: "edgard_Ortega",
-    birthdate: "16/05/1991",
-    email: "edgard_garito@live.cl",
-    password: "************",
+  const { user } = useAuth(); // Obtener el usuario autenticado desde el contexto
+  const [userData, setUserData] = useState({
+    userName: "",
+    Email: "",
+    Rol: "",
   });
 
-  const [showPassword, setShowPassword] = useState(false);
+  useEffect(() => {
+    const fetchUserData = async () => {
+      try {
+        const response = await fetch("/data/listadoUsuarios.json");
+        const users = await response.json();
 
+        // Buscar los datos del usuario autenticado
+        const foundUser = users.find((u) => u.userName === user?.userName);
+
+        if (foundUser) {
+          setUserData({
+            userName: foundUser.userName,
+            Email: foundUser.Email,
+            Rol: foundUser.Rol,
+          });
+        }
+      } catch (error) {
+        console.error("Error al obtener los datos del usuario:", error);
+      }
+    };
+
+    if (user) {
+      fetchUserData();
+    }
+  }, [user]);
+
+  // Manejar cambios en los inputs
   const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    setUserData({
+      ...userData,
+      [e.target.name]: e.target.value,
+    });
   };
 
   return (
     <div className="d-flex justify-content-center align-items-center vh-100">
-      <Card style={{ width: "28rem", backgroundColor: "#fefe00", padding: "25px", borderRadius: "15px" }}>
+      <Card style={{ width: "350px",backgroundColor: "#FFFF00", padding: "20px", borderRadius: "15px" }}>
         <Card.Body>
-          <Card.Title className="text-center fw-bold fs-4">Perfil Personal</Card.Title>
+          <Card.Title className="text-center fw-bold">Perfil de Usuario</Card.Title>
           <Form>
             <Form.Group className="mb-3">
-              <Form.Label className="fw-bold">Nombre usuario</Form.Label>
-              <Form.Control type="text" name="username" value={formData.username} onChange={handleChange} />
+              <Form.Label>Nombre de usuario</Form.Label>
+              <Form.Control 
+                type="text" 
+                name="userName"
+                value={userData.userName} 
+                onChange={handleChange} 
+              />
             </Form.Group>
 
             <Form.Group className="mb-3">
-              <Form.Label className="fw-bold">Fecha de nacimiento</Form.Label>
-              <Form.Control type="date" name="birthdate" value={formData.birthdate} onChange={handleChange} />
+              <Form.Label>Email</Form.Label>
+              <Form.Control 
+                type="email" 
+                name="Email"
+                value={userData.Email} 
+                onChange={handleChange} 
+              />
             </Form.Group>
 
             <Form.Group className="mb-3">
-              <Form.Label className="fw-bold">Email</Form.Label>
-              <Form.Control type="email" name="email" value={formData.email} onChange={handleChange} />
+              <Form.Label>Rol</Form.Label>
+              <Form.Control 
+                type="text" 
+                name="Rol"
+                value={userData.Rol} 
+                onChange={handleChange} 
+              />
             </Form.Group>
 
-            <Form.Group className="mb-3">
-              <Form.Label className="fw-bold">Password</Form.Label>
-              <InputGroup>
-                <Form.Control type={showPassword ? "text" : "password"} name="password" value={formData.password} onChange={handleChange} />
-                <Button variant="outline-dark" onClick={() => setShowPassword(!showPassword)}>
-                  <FaEye />
-                </Button>
-              </InputGroup>
-            </Form.Group>
-
-            <div className="d-grid">
-              <Button variant="dark" type="button" onClick={() => console.log("Datos guardados:", formData)}>
-                GUARDAR
-              </Button>
-              <Button variant="primary" className="mt-3" onClick={() => navigate("/Historial")}>
-                Ver Historial de Compras
-              </Button>
-            </div>
+            <Button variant="dark" className="w-100">
+              Guardar
+            </Button>
           </Form>
         </Card.Body>
       </Card>

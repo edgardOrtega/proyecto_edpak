@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { Table, Button, Spinner } from "react-bootstrap";
+import { Table, Button, Spinner, Container } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 
-const JSON_FILE = "/data/listadoUsuarios.json"; // Ruta del archivo JSON
+const JSON_FILE = "/data/listadoUsuarios.json"; // Ruta del JSON
+
 const ListarUsuarios = () => {
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -14,7 +15,7 @@ const ListarUsuarios = () => {
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const response = await axios.get(JSON_FILE); // Ruta local del JSON
+        const response = await axios.get(JSON_FILE);
         setUsers(response.data);
       } catch (err) {
         setError("Error al cargar los usuarios");
@@ -26,11 +27,11 @@ const ListarUsuarios = () => {
     fetchUsers();
   }, []);
 
-  const handleEdit = (index) => {
-    navigate(`/editar-usuario/${index}`);
+  const handleEdit = (id) => {
+    navigate(`/EditarUsuario/${id}`);
   };
 
-  const handleDelete = (index) => {
+  const handleDelete = (id) => {
     Swal.fire({
       title: "¿Estás seguro?",
       text: "No podrás revertir esto!",
@@ -38,10 +39,10 @@ const ListarUsuarios = () => {
       showCancelButton: true,
       confirmButtonColor: "#3085d6",
       cancelButtonColor: "#d33",
-      confirmButtonText: "Sí, eliminar!"
+      confirmButtonText: "Sí, eliminar!",
     }).then((result) => {
       if (result.isConfirmed) {
-        setUsers(users.filter((_, i) => i !== index));
+        setUsers(users.filter((user) => user.id !== id));
         Swal.fire("Eliminado!", "El usuario ha sido eliminado.", "success");
       }
     });
@@ -51,10 +52,10 @@ const ListarUsuarios = () => {
   if (error) return <p className="text-center text-danger mt-4">{error}</p>;
 
   return (
-    <div className="container mt-4">
+    <Container className="mt-4">
       <h4 className="text-center fw-bold">LISTADO DE USUARIOS</h4>
-      <Table striped bordered hover className="text-center align-middle mt-3">
-        <thead>
+      <Table striped bordered hover responsive className="text-center align-middle mt-3">
+        <thead className="table-dark">
           <tr>
             <th>Username</th>
             <th>Email</th>
@@ -67,8 +68,8 @@ const ListarUsuarios = () => {
           </tr>
         </thead>
         <tbody>
-          {users.map((user, index) => (
-            <tr key={index}>
+          {users.map((user) => (
+            <tr key={user.id}>
               <td>{user.userName}</td>
               <td>{user.Email}</td>
               <td>{user.Password}</td>
@@ -76,16 +77,20 @@ const ListarUsuarios = () => {
               <td>{user.Activo ? "Sí" : "No"}</td>
               <td>{new Date(user.Fecha_creado).toLocaleDateString()}</td>
               <td>
-                <Button variant="success" size="sm" onClick={() => handleEdit(index)}>Editar</Button>
+                <Button variant="warning" size="sm" onClick={() => handleEdit(user.id)}>
+                  ✏️ Editar
+                </Button>
               </td>
               <td>
-                <Button variant="danger" size="sm" onClick={() => handleDelete(index)}>Eliminar</Button>
+                <Button variant="danger" size="sm" onClick={() => handleDelete(user.id)}>
+                  🗑️ Eliminar
+                </Button>
               </td>
             </tr>
           ))}
         </tbody>
       </Table>
-    </div>
+    </Container>
   );
 };
 

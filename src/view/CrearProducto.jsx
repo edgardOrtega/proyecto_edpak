@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Form, Button, Card } from "react-bootstrap";
+import Swal from "sweetalert2";
 
 const CrearProducto = () => {
   const [product, setProduct] = useState({
@@ -8,7 +9,7 @@ const CrearProducto = () => {
     price: "",
     stock: "",
     category: "",
-    image: null,
+    image: "", // Cambié imageUrl por image
   });
 
   const handleChange = (e) => {
@@ -16,13 +17,32 @@ const CrearProducto = () => {
     setProduct({ ...product, [name]: value });
   };
 
-  const handleImageChange = (e) => {
-    setProduct({ ...product, image: e.target.files[0] });
-  };
-
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Producto agregado:", product);
+
+    try {
+      const response = await fetch("http://localhost:5000/productos", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(product),
+      });
+
+      if (response.ok) {
+        Swal.fire("¡Éxito!", "Producto agregado correctamente", "success");
+        setProduct({
+          name: "",
+          description: "",
+          price: "",
+          stock: "",
+          category: "",
+          image: "",
+        });
+      } else {
+        throw new Error("Error al agregar el producto");
+      }
+    } catch (error) {
+      Swal.fire("Error", "No se pudo agregar el producto", "error");
+    }
   };
 
   return (
@@ -57,8 +77,8 @@ const CrearProducto = () => {
             </Form.Group>
 
             <Form.Group className="mb-3">
-              <Form.Label>Adjuntar imagen</Form.Label>
-              <Form.Control type="file" onChange={handleImageChange} />
+              <Form.Label>URL de la Imagen</Form.Label>
+              <Form.Control type="text" name="image" value={product.image} onChange={handleChange} required />
             </Form.Group>
 
             <Button type="submit" variant="dark" className="w-100">
