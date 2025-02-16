@@ -74,7 +74,7 @@ const EditarProducto = () => {
         {/* Card del Producto Original */}
         <Col md={6}>
           <Card className="shadow">
-            <Card.Img variant="top" src={productoOriginal.image} />
+            <Card.Img variant="top" src={productoOriginal.image} style={{ width: "100%", maxHeight: "300px", objectFit: "contain" }}    />
             <Card.Body>
               <Card.Title>{productoOriginal.name}</Card.Title>
               <Card.Text>
