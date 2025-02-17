@@ -1,12 +1,6 @@
-# Proyecto React
+# Proyecto EDPAK
 
-## 📌 Descripción
-Este es un proyecto desarrollado con React que utiliza varias dependencias para facilitar la construcción de la interfaz de usuario y la gestión de rutas.
-Es un proyecto de compras de artículos tecnológicos (hasta el momento solo cámaras) en el que el usuario debe inciar sesión para acceder a las partes privadas del cliente o administrador, dependiendo de su rol.
- el rol de administrador puede ver tanto las view publicas (home) y las privadas (mi perfil, galeria, listar usuarios, listar prodyctos, crear producto, carrito, historial )  y en el menu se le habilita un cerrar sesion en cambio el el rol de cliente puede ver tanto las view publicas (home) y las privadas (mi perfil, galeria, carrito, historial )  y en el menu se le habilita un cerrar sesion.
-las funcionalidad del carrito para registrar lo añadido desde la galería, teniéndose subtotales por producto/cantidad y total neto. Tras la compra, se guarda la orden en un historial. 
-
-## 🚀 Usuarios de Log In 🚀 
+## 👤 Usuarios de Log In 👤 
 
 Para revisar el login, puede ingresar con los correos y contraseñas de cualquier usuario en `data/listadoUsuarios.json`.
 
@@ -20,7 +14,37 @@ Para revisar el login, puede ingresar con los correos y contraseñas de cualquie
 `Email`: `cliente@cliente.com`  
 `Password`: `cliente`  
 
-## 🚀 Instalación
+
+## 📜 Descripción
+
+Este es un proyecto en desarrollo (**solo Frontend**) con **React**, que utiliza varias dependencias para facilitar la construcción de la interfaz de usuario y la gestión de rutas.
+
+### 🛍️ Marketplace de artículos tecnológicos
+El proyecto consiste en un **Marketplace** enfocado en la compra de artículos tecnológicos *(hasta el momento, solo cámaras)*.  
+Los usuarios deben **iniciar sesión** para acceder a las rutas privadas, dependiendo de su rol:
+
+### 👤 **Roles de usuario**
+- **Administrador**: Puede acceder a las **vistas públicas** (`Home`) y a **todas las vistas privadas**, incluyendo:
+  - Mi perfil
+  - Galería
+  - Listar usuarios
+  - Listar productos
+  - Crear producto
+  - Carrito
+  - Historial
+
+- **Cliente**: Puede acceder a las **vistas públicas** (`Home`) y solo a las **vistas privadas permitidas**, que son:
+  - Mi perfil
+  - Galería
+  - Carrito
+  - Historial
+
+Cada usuario tiene un botón **"Cerrar sesión"** en la **NavBar** para salir de su cuenta (último apartado del presente ReadMe).
+
+✍️ **Este proyecto sigue en desarrollo y se ampliará con más funcionalidades.**  
+
+
+## ⬇️ Instalación
 Para ejecutar este proyecto en tu entorno local, sigue estos pasos:
 
 1. Clona el repositorio:
@@ -49,7 +73,7 @@ Para ejecutar este proyecto en tu entorno local, sigue estos pasos:
 | **react-router-dom** | ^7.1.5      | Manejo de rutas y navegación en React |
 | **sweetalert2**    | ^11.16.1    | Para notificaciones y ventanas mas esteticas |
 
-## 🚀 Tecnologías Utilizadas
+## ⚡ Tecnologías Utilizadas
 - **Frontend**: React, React Bootstrap, React Router
 - **Backend (Simulado)**: JSON Server para manejo de datos de usuarios y productos
 - **Gestor de Estado**: Context API para la gestión del carrito de compras y autenticación
@@ -99,35 +123,47 @@ Proyecto_EDPAK/
 │── package.json
 │── .gitignore
 │── README.md
+...
+```
+
 
 ## 🎯 Características Principales
 
-### ✅ Funcionalidades Públicas
-- Visualización del home.
+### 🔓 **Funcionalidades Públicas**
+- Visualización del **Home**.
 - Registro de usuarios.
 - Inicio de sesión.
 
-### 🔒 Funcionalidades Protegidas
-- **Cliente**: Acceso al carrito de compras, historial de pedidos y galería.
-- **Administrador**: Gestión de productos y usuarios.
+### 🔒 **Funcionalidades Protegidas**
+#### 👤 **Cliente**
+- Acceso al **carrito de compras**.
+- Visualización del **Historial de pedidos**.
+- Exploración de la **Galería de productos**.
 
-### 🔑 Autenticación
-- Validación de credenciales con `listadoUsuarios.json`.
-- Redirección automática según el rol del usuario.
+#### 👑 **Administrador**
+- **Gestión de productos**: listar, crear y editar productos.
+- **Gestión de usuarios**: listar y editar usuarios.
 
+---
 
-## 🔄 Flujo de Autenticación y Navegación
-1. Un usuario se registra o inicia sesión.
-2. Si la autenticación es correcta, se almacena en context
-3. Dependiendo del rol, se muestran diferentes opciones en la barra de navegación.
-4. Los usuarios pueden agregar productos al carrito y realizar compras.
-5. Se puede cerrar sesión, lo que limpia la variable global en context y mostrará solo las vistas públicas.
+## 🔑 **Flujo de Autenticación y Navegación**
+1. Un usuario **se registra o inicia sesión**.  
+2. Si la autenticación es correcta, se almacena en **Context API**.  
+3. Dependiendo del **rol**, se muestran diferentes opciones en la **NavBar**.  
+4. Los usuarios pueden **agregar productos al carrito** y realizar compras.  
+5. Al **cerrar sesión**, se limpia la variable global en **Context API**, mostrando solo las vistas públicas.
 
-## 📝 Próximas Mejoras
-- Integración con una API real para usuarios y productos.
-- Encriptar passwords y utilizar webtoken.
-- Mejoras en la interfaz de usuario y experiencia de compra.
-- trabajar con bd postgreSQL
+---
 
-📌 **Desarrollado con ❤️ y React por el equipo de EDPAK**
+## 📝 **Próximas Mejoras**
+- 🔗 **Integración con una API real** para usuarios y productos.  
+- 🔒 **Encriptación de contraseñas** y autenticación con **JWT**.  
+- 🎨 **Mejoras en la interfaz de usuario** para optimizar la experiencia de compra.  
+- 🗄️ **Incorporar base de datos real** con **PostgreSQL**.
 
+---
+
+## 🖊️ **Créditos**
+Desarrollado con ❤️ y **React** por:  
+- **Edgard Ortega Pino**  
+- **Joaquín López Rojas**
