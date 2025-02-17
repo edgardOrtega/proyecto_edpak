@@ -2,14 +2,21 @@
 
 ## 📌 Descripción
 Este es un proyecto desarrollado con React que utiliza varias dependencias para facilitar la construcción de la interfaz de usuario y la gestión de rutas.
-es un proyecto de compras que el usuario debe logearse para acceder a las partes privadas del usuario o administrado dependiendo de su rol esta incoorporado un carrito donde se iran guardando las cosas que quiere comprar y al momento de pagar se ira a un historial del usuario 
+Es un proyecto de compras de artículos tecnológicos (hasta el momento solo cámaras) en el que el usuario debe inciar sesión para acceder a las partes privadas del cliente o administrador, dependiendo de su rol. Se incorpora un carrito para registrar lo añadido desde la galería, teniéndose subtotales por producto/cantidad y total neto. Tras la compra, se guarda la orden en un historial. 
 
-## 🚀 logearse 🚀 
-para revisar el login puede ingresar con los correos y password de cualquier usuario de la data/listadoUsuarios.json
-ejemplo:
+## 🚀 Usuarios de Log In 🚀 
 
-"Email": "edpak@edpak.com"
-"Password": "1234"
+Para revisar el login, puede ingresar con los correos y contraseñas de cualquier usuario en `data/listadoUsuarios.json`.
+
+### **Ejemplos:**
+
+**Administrador**  
+`Email`: `administrador@administrador.com`  
+`Password`: `administrador`  
+
+**Cliente**  
+`Email`: `cliente@cliente.com`  
+`Password`: `cliente`  
 
 ## 🚀 Instalación
 Para ejecutar este proyecto en tu entorno local, sigue estos pasos:
@@ -53,22 +60,27 @@ Proyecto_EDPAK/
 │── public/
 │   ├── data/
 │   │   ├── listadoUsuarios.json  # Datos de Usuarios
-|   |   ├── tecnologia.json  # Datos de Producto
-│   ├── images/
+│   │   ├── tecnologia.json  # Datos de Producto
 │── src/
 │   ├── assets/
-|   |   ├── edpak.png
-|   |   ├── grupo.png
+│   │   ├── edpak.png
+│   │   ├── grupo.png
 │   ├── components/
+│   │   ├── AdminRoute.jsx
+│   │   ├── ClientRoute.jsx
 │   │   ├── Navegation.jsx
 │   │   ├── ProductCart.jsx
+│   │   ├── ProtectedRoute.jsx
 │   ├── context/
 │   │   ├── AuthContext.jsx
 │   │   ├── CartContext.jsx
 │   │   ├── HistoryContext.jsx
-│   ├── views/
-│   │   ├── Carritojsx
+│   ├── view/
+│   │   ├── Carrito.jsx
 │   │   ├── CrearProducto.jsx
+│   │   ├── EditarProducto.jsx
+│   │   ├── EditarUsuario.jsx
+│   │   ├── Error404.jsx
 │   │   ├── Galeria.jsx
 │   │   ├── Historial.jsx
 │   │   ├── Home.jsx
@@ -78,10 +90,13 @@ Proyecto_EDPAK/
 │   │   ├── Logout.jsx
 │   │   ├── Profile.jsx
 │   │   ├── Register.jsx
-│── README.md
+│── App.css
+│── App.jsx
+│── index.css
+│── main.jsx
 │── package.json
 │── .gitignore
-```
+│── README.md
 
 ## 🎯 Características Principales
 
@@ -108,6 +123,7 @@ Proyecto_EDPAK/
 
 ## 📝 Próximas Mejoras
 - Integración con una API real para usuarios y productos.
+- Encriptar passwords y utilizar webtoken.
 - Mejoras en la interfaz de usuario y experiencia de compra.
 
 📌 **Desarrollado con ❤️ y React por el equipo de EDPAK**
