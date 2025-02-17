@@ -9,21 +9,45 @@ const Register = () => {
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [birthDate, setBirthDate] = useState("");
   const [error, setError] = useState("");
   const navigate = useNavigate();
 
+  // Obtener la fecha actual y calcular los límites de edad
+  const today = new Date();
+  const minDate = new Date(today.getFullYear() - 150, today.getMonth(), today.getDate()); // Hace 150 años
+  const maxDate = new Date(today.getFullYear() - 1, today.getMonth(), today.getDate()); // Mínimo 1 año
+
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    // Convertir la fecha de nacimiento ingresada a un objeto Date
+    const birthDateObj = new Date(birthDate);
+
+    // Validar que la fecha de nacimiento esté dentro del rango permitido
+    if (birthDateObj < minDate || birthDateObj > maxDate) {
+      setError("Fecha inválida");
+      return;
+    }
+
+    // Validar que la contraseña tenga al menos 4 caracteres
+    if (password.length < 4) {
+      setError("La contraseña debe tener al menos 4 caracteres.");
+      return;
+    }
+
+    // Validar que las contraseñas coincidan
     if (password !== confirmPassword) {
       setError("Las contraseñas no coinciden");
       return;
     }
+
     setError("");
 
     let timer = 5;
     Swal.fire({
       title: "Registro exitoso",
-      html: `Registro exitoso, pero como solo es una simulación en Front End, use los usuarios del Read Me.<br><br>Lea bien antes de continuar: <b>${timer}</b> segundos.`,
+      html: `¡Por favor, usar solo los usuarios del Read Me!<br><br>Lea bien antes de continuar: <b>${timer}</b> segundos.`,
       icon: "success",
       allowOutsideClick: false,
       allowEscapeKey: false,
@@ -70,7 +94,12 @@ const Register = () => {
 
             <Form.Group className="mb-3">
               <Form.Label>Fecha de nacimiento</Form.Label>
-              <Form.Control type="date" required />
+              <Form.Control
+                type="date"
+                required
+                value={birthDate}
+                onChange={(e) => setBirthDate(e.target.value)}
+              />
             </Form.Group>
 
             <Form.Group className="mb-3">
