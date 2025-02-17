@@ -1,15 +1,14 @@
 import React, { useState } from "react";
 import { Form, Button, InputGroup, Card } from "react-bootstrap";
-import { FaEye, FaGlobe } from "react-icons/fa";
+import { FaEye } from "react-icons/fa";
 import { useAuth } from "../context/AuthContext"; 
 import { useNavigate } from "react-router-dom";
-import Swal from "sweetalert2"; // ✅ Importa SweetAlert2
+import Swal from "sweetalert2";
 
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
   const { login } = useAuth();
   const navigate = useNavigate();
 
@@ -23,10 +22,10 @@ const Login = () => {
         text: `Tu rol es: ${result.rol}`,
         icon: "success",
         confirmButtonText: "Continuar",
-        timer: 2000, // ✅ Cierra la alerta automáticamente en 2 segundos
-        showConfirmButton: false, // ✅ Oculta el botón de confirmación
+        timer: 2000,
+        showConfirmButton: false,
       }).then(() => {
-        navigate("/Galeria"); // ✅ Redirige después de la alerta
+        navigate("/Galeria");
       });
     } else {
       Swal.fire({
@@ -41,15 +40,14 @@ const Login = () => {
   return (
     <div className="d-flex justify-content-center align-items-center vh-100">
       <Card className="p-4 text-center login-card">
-        <h2 className="fw-bold">Welcome again!</h2>
-        <p>Please enter your details</p>
+        <h2 className="fw-bold">Inicio de Sesión</h2>
 
         <Form onSubmit={handleSubmit}>
           <Form.Group className="mb-3" controlId="formBasicEmail">
             <Form.Label>Email</Form.Label>
             <Form.Control
               type="email"
-              placeholder="Enter email"
+              placeholder="Ingrese Email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
@@ -57,11 +55,11 @@ const Login = () => {
           </Form.Group>
 
           <Form.Group className="mb-3" controlId="formBasicPassword">
-            <Form.Label>Password</Form.Label>
+            <Form.Label>Contraseña</Form.Label>
             <InputGroup>
               <Form.Control
                 type={showPassword ? "text" : "password"}
-                placeholder="Enter password"
+                placeholder="Ingrese contraseña"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 required
@@ -75,13 +73,8 @@ const Login = () => {
             </InputGroup>
           </Form.Group>
 
-          <Button className="w-100 login-btn mb-2" type="submit">
-            Log In
-          </Button>
-
-          <Button variant="light" className="w-100 border login-email-btn">
-            <FaGlobe className="me-2" />
-            Log in with Email
+          <Button className="w-100 login-btn mb-2 boton-login" type="submit">
+            Entrar
           </Button>
         </Form>
       </Card>

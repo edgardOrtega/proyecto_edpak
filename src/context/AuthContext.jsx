@@ -1,9 +1,13 @@
-import { createContext, useState, useContext } from "react";
+import { createContext, useState, useContext, useEffect } from "react";
 
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState(() => {
+    // Intentamos recuperar el usuario desde localStorage al cargar la app
+    const savedUser = localStorage.getItem("user");
+    return savedUser ? JSON.parse(savedUser) : null;
+  });
 
   const login = async (email, password) => {
     try {
@@ -15,7 +19,9 @@ export const AuthProvider = ({ children }) => {
       );
 
       if (foundUser && foundUser.Activo) {
-        setUser({ userName: foundUser.userName, rol: foundUser.Rol });
+        const userData = { userName: foundUser.userName, rol: foundUser.Rol };
+        setUser(userData);
+        localStorage.setItem("user", JSON.stringify(userData)); // Guardamos en localStorage
         return { success: true, rol: foundUser.Rol };
       } else {
         return { success: false, message: "Credenciales incorrectas o usuario inactivo." };
@@ -26,10 +32,13 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
-  const logout = () => setUser(null);
+  const logout = () => {
+    setUser(null);
+    localStorage.removeItem("user"); // Eliminamos la sesión
+  };
 
   return (
-    <AuthContext.Provider value={{ user, login, logout }}>
+    <AuthContext.Provider value={{ user, isAuthenticated: !!user, login, logout }}>
       {children}
     </AuthContext.Provider>
   );
