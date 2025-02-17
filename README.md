@@ -2,7 +2,9 @@
 
 ## 📌 Descripción
 Este es un proyecto desarrollado con React que utiliza varias dependencias para facilitar la construcción de la interfaz de usuario y la gestión de rutas.
-Es un proyecto de compras de artículos tecnológicos (hasta el momento solo cámaras) en el que el usuario debe inciar sesión para acceder a las partes privadas del cliente o administrador, dependiendo de su rol. Se incorpora un carrito para registrar lo añadido desde la galería, teniéndose subtotales por producto/cantidad y total neto. Tras la compra, se guarda la orden en un historial. 
+Es un proyecto de compras de artículos tecnológicos (hasta el momento solo cámaras) en el que el usuario debe inciar sesión para acceder a las partes privadas del cliente o administrador, dependiendo de su rol.
+ el rol de administrador puede ver tanto las view publicas (home) y las privadas (mi perfil, galeria, listar usuarios, listar prodyctos, crear producto, carrito, historial )  y en el menu se le habilita un cerrar sesion en cambio el el rol de cliente puede ver tanto las view publicas (home) y las privadas (mi perfil, galeria, carrito, historial )  y en el menu se le habilita un cerrar sesion.
+las funcionalidad del carrito para registrar lo añadido desde la galería, teniéndose subtotales por producto/cantidad y total neto. Tras la compra, se guarda la orden en un historial. 
 
 ## 🚀 Usuarios de Log In 🚀 
 
@@ -11,8 +13,8 @@ Para revisar el login, puede ingresar con los correos y contraseñas de cualquie
 ### **Ejemplos:**
 
 **Administrador**  
-`Email`: `administrador@administrador.com`  
-`Password`: `administrador`  
+`Email`: `admin@admin.com`  
+`Password`: `admin`  
 
 **Cliente**  
 `Email`: `cliente@cliente.com`  
@@ -125,6 +127,7 @@ Proyecto_EDPAK/
 - Integración con una API real para usuarios y productos.
 - Encriptar passwords y utilizar webtoken.
 - Mejoras en la interfaz de usuario y experiencia de compra.
+- trabajar con bd postgreSQL
 
 📌 **Desarrollado con ❤️ y React por el equipo de EDPAK**
 
