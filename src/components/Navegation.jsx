@@ -19,32 +19,32 @@ const Navegation = () => {
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="ms-auto">
             {/* Enlaces públicos (para todos) */}
-            <Nav.Link as={NavLink} to="/">Home</Nav.Link>
-            {!user && <Nav.Link as={NavLink} to="/Register">Registro</Nav.Link>}
-            {!user && <Nav.Link as={NavLink} to="/Login">Inicio sesión</Nav.Link>}
+            <Nav.Link as={NavLink} to="/" className={({ isActive }) => isActive ? "nav-link active-link" : "nav-link"}>Home</Nav.Link>
+            {!user && <Nav.Link as={NavLink} to="/Register" className={({ isActive }) => isActive ? "nav-link active-link" : "nav-link"}>Registro</Nav.Link>}
+            {!user && <Nav.Link as={NavLink} to="/Login" className={({ isActive }) => isActive ? "nav-link active-link" : "nav-link"}>Inicio sesión</Nav.Link>}
 
             {/* Enlaces para usuario autenticado */}
             {user && (
               <>
-                <Nav.Link as={NavLink} to="/Profile">Mi perfil</Nav.Link>
-                <Nav.Link as={NavLink} to="/Galeria">Galería</Nav.Link>
+                <Nav.Link as={NavLink} to="/Profile" className={({ isActive }) => isActive ? "nav-link active-link" : "nav-link"}>Mi perfil</Nav.Link>
+                <Nav.Link as={NavLink} to="/Galeria" className={({ isActive }) => isActive ? "nav-link active-link" : "nav-link"}>Galería</Nav.Link>
 
                 {/* Enlaces solo para ADMINISTRADOR */}
                 {user.rol === "administrador" && (
                   <>
-                    <Nav.Link as={NavLink} to="/ListarUsuarios">Listar Usuarios</Nav.Link>
-                    <Nav.Link as={NavLink} to="/ListarProductos">Listar Producto</Nav.Link>
-                    <Nav.Link as={NavLink} to="/CrearProducto">Crear Producto</Nav.Link>
-                    <Nav.Link as={NavLink} to="/Carrito">Carrito</Nav.Link>
-                    <Nav.Link as={NavLink} to="/Historial">Historial</Nav.Link>
+                    <Nav.Link as={NavLink} to="/ListarUsuarios" className={({ isActive }) => isActive ? "nav-link active-link" : "nav-link"}>Listar Usuarios</Nav.Link>
+                    <Nav.Link as={NavLink} to="/ListarProductos" className={({ isActive }) => isActive ? "nav-link active-link" : "nav-link"}>Listar Producto</Nav.Link>
+                    <Nav.Link as={NavLink} to="/CrearProducto" className={({ isActive }) => isActive ? "nav-link active-link" : "nav-link"}>Crear Producto</Nav.Link>
+                    <Nav.Link as={NavLink} to="/Carrito" className={({ isActive }) => isActive ? "nav-link active-link" : "nav-link"}>Carrito</Nav.Link>
+                    <Nav.Link as={NavLink} to="/Historial" className={({ isActive }) => isActive ? "nav-link active-link" : "nav-link"}>Historial</Nav.Link>
                   </>
                 )}
 
                 {/* Enlaces solo para CLIENTE */}
                 {user.rol === "cliente" && (
                   <>
-                    <Nav.Link as={NavLink} to="/Carrito">Carrito</Nav.Link>
-                    <Nav.Link as={NavLink} to="/Historial">Historial</Nav.Link>
+                    <Nav.Link as={NavLink} to="/Carrito" className={({ isActive }) => isActive ? "nav-link active-link" : "nav-link"}>Carrito</Nav.Link>
+                    <Nav.Link as={NavLink} to="/Historial" className={({ isActive }) => isActive ? "nav-link active-link" : "nav-link"}>Historial</Nav.Link>
                   </>
                 )}
 

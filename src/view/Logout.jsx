@@ -1,5 +1,5 @@
 import React from "react";
-import { NavLink, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import { useAuth } from "../context/AuthContext"; 
 
@@ -29,9 +29,12 @@ const Logout = () => {
   };
 
   return (
-    <NavLink to="#" onClick={handleLogout} className="nav-link">
+    <button 
+      className="nav-link logout-button"
+      onClick={handleLogout}
+    >
       Cerrar Sesión
-    </NavLink>
+    </button>
   );
 };
 
