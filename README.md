@@ -41,14 +41,6 @@ Los usuarios deben **iniciar sesión** para acceder a las rutas privadas, depend
 
 Cada usuario tiene un botón **"Cerrar sesión"** en la **NavBar** para salir de su cuenta (último apartado del presente ReadMe).
 
-### 🛒 **Funcionalidad principal**
-- **Galería de productos**: Muestra los artículos disponibles.
-- **Carrito de compras**:  
-  - Registra los productos añadidos.  
-  - Muestra los **subtotales** por producto/cantidad y el **total neto a pagar**.  
-- **Historial de compras**:  
-  - Guarda las órdenes de compra con su información respectiva tras realizar una compra.
-
 ✍️ **Este proyecto sigue en desarrollo y se ampliará con más funcionalidades.**  
 
 
