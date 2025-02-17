@@ -5,7 +5,7 @@ import { useHistory } from "../context/HistoryContext";
 const Historial = () => {
   const { history } = useHistory();
 
-  // 🔹 Función para formatear CLP correctamente
+  //  Función para formatear CLP correctamente
   const formatoCLP = (valor) => `$${Number(valor).toLocaleString("es-CL", { minimumFractionDigits: 0 })}`;
 
   return (
@@ -25,7 +25,7 @@ const Historial = () => {
             }}
           >
             <Card.Body>
-              {/* 🔹 Número de orden y fecha */}
+              {/*  Número de orden y fecha */}
               <Row className="align-items-center mb-3">
                 <Col className="text-start">
                   <h5 className="fw-bold">NÚMERO DE ORDEN: {purchase.id}</h5>
@@ -35,9 +35,9 @@ const Historial = () => {
                 </Col>
               </Row>
 
-              {/* 🔹 Listado de productos */}
+              {/* Listado de productos */}
               {purchase.products.map((product) => {
-                const subtotal = product.price * product.quantity; // 🔹 Calcular subtotal
+                const subtotal = product.price * product.quantity; // Calcular subtotal
 
                 return (
                   <Row key={product.id} className="align-items-center mb-3 text-start">

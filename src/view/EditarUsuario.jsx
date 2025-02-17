@@ -25,7 +25,7 @@ const EditarUsuario = () => {
         const response = await axios.get(JSON_FILE);
         const users = response.data;
   
-        const foundUser = users.find(user => user.id === id); // 📌 Buscar usuario por ID
+        const foundUser = users.find(user => user.id === id); // Buscar usuario por ID
   
         if (foundUser) {
           setUserData(foundUser);

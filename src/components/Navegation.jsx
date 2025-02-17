@@ -18,18 +18,18 @@ const Navegation = () => {
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="ms-auto">
-            {/* 📌 Enlaces públicos (para todos) */}
+            {/* Enlaces públicos (para todos) */}
             <Nav.Link as={NavLink} to="/">Home</Nav.Link>
             {!user && <Nav.Link as={NavLink} to="/Register">Registro</Nav.Link>}
             {!user && <Nav.Link as={NavLink} to="/Login">Inicio sesión</Nav.Link>}
 
-            {/* 📌 Enlaces para usuario autenticado */}
+            {/* Enlaces para usuario autenticado */}
             {user && (
               <>
                 <Nav.Link as={NavLink} to="/Profile">Mi perfil</Nav.Link>
                 <Nav.Link as={NavLink} to="/Galeria">Galería</Nav.Link>
 
-                {/* 📌 Enlaces solo para ADMINISTRADOR */}
+                {/* Enlaces solo para ADMINISTRADOR */}
                 {user.rol === "administrador" && (
                   <>
                     <Nav.Link as={NavLink} to="/ListarUsuarios">Listar Usuarios</Nav.Link>
@@ -40,7 +40,7 @@ const Navegation = () => {
                   </>
                 )}
 
-                {/* 📌 Enlaces solo para CLIENTE */}
+                {/* Enlaces solo para CLIENTE */}
                 {user.rol === "cliente" && (
                   <>
                     <Nav.Link as={NavLink} to="/Carrito">Carrito</Nav.Link>
@@ -48,7 +48,7 @@ const Navegation = () => {
                   </>
                 )}
 
-                {/* 📌 Botón de Cerrar Sesión */}
+                {/* Botón de Cerrar Sesión */}
                 <Logout />
               </>
             )}

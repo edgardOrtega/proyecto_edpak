@@ -2,7 +2,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import Swal from "sweetalert2";
-import { Card, Button, Form, Spinner, Row, Col } from "react-bootstrap"; // 📌 Importamos Card, Form y Button
+import { Card, Button, Form, Spinner, Row, Col } from "react-bootstrap"; // Importamos Card, Form y Button
 
 const JSON_FILE = "/data/tecnologia.json"; // Ruta del JSON
 

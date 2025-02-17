@@ -33,7 +33,7 @@ const Galeria = ({ actualizarStock, stockDisponible }) => {
       });
   }, []);
 
-  // 🔹 Función para formatear CLP sin decimales
+  //  Función para formatear CLP sin decimales
   const formatoCLP = (valor) => `$${Number(valor).toLocaleString("es-CL", { minimumFractionDigits: 0 })}`;
 
   // Agregar producto al carrito

@@ -12,10 +12,14 @@ import CrearProducto from "./view/CrearProducto";
 import Galeria from "./view/Galeria";
 import Carrito from "./view/Carrito";
 import Historial from "./view/Historial"; 
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, Navigate } from "react-router-dom";
 import { AuthProvider } from "./context/AuthContext";
+import ProtectedRoute from "./components/ProtectedRoute";
+import AdminRoute from "./components/AdminRoute";
+import ClientRoute from "./components/ClientRoute";
 import EditarUsuario from "./view/EditarUsuario";
 import EditarProducto from "./view/EditarProducto";
+import Error404 from "./view/Error404"; // Importamos la nueva página 404
 
 function App() {
   const [productos, setProductos] = useState([]);
@@ -62,28 +66,35 @@ function App() {
   };
 
   return (
-    <>
-
-      <AuthProvider>
+    <AuthProvider>
       <Navegation />
       <Routes>
+        {/* Rutas públicas */}
         <Route path="/" element={<Home />} />
         <Route path="/Register" element={<Register />} />
-
         <Route path="/Login" element={<Login />} />
 
-        <Route path="/Profile" element={<Profile />} />
-        <Route path="/ListarUsuarios" element={<ListarUsuarios />} />
-        <Route path="/ListarProductos" element={<ListarProductos />} />
-        <Route path="/CrearProducto" element={<CrearProducto />} />
-        <Route path="/Galeria" element={<Galeria actualizarStock={actualizarStock} stockDisponible={stockDisponible} />} />
-        <Route path="/Carrito" element={<Carrito actualizarStock={actualizarStock} />} />
-        <Route path="/Historial" element={<Historial />} />
-        <Route path="/EditarProducto/:id" element={<EditarProducto />} />
-        <Route path="/EditarUsuario/:id" element={<EditarUsuario />} />
+        {/* Rutas accesibles por CLIENTES y ADMINISTRADORES */}
+        <Route element={<ClientRoute />}>
+          <Route path="/Profile" element={<Profile />} />
+          <Route path="/Galeria" element={<Galeria actualizarStock={actualizarStock} stockDisponible={stockDisponible} />} />
+          <Route path="/Carrito" element={<Carrito actualizarStock={actualizarStock} />} />
+          <Route path="/Historial" element={<Historial />} />
+        </Route>
+
+        {/* Rutas accesibles SOLO por ADMINISTRADORES */}
+        <Route element={<AdminRoute />}>
+          <Route path="/ListarUsuarios" element={<ListarUsuarios />} />
+          <Route path="/ListarProductos" element={<ListarProductos />} />
+          <Route path="/CrearProducto" element={<CrearProducto />} />
+          <Route path="/EditarProducto/:id" element={<EditarProducto />} />
+          <Route path="/EditarUsuario/:id" element={<EditarUsuario />} />
+        </Route>
+
+        {/* Página de error 404 */}
+        <Route path="*" element={<Error404 />} />
       </Routes>
-      </AuthProvider>
-    </>
+    </AuthProvider>
   );
 }
 
